@@ -49,5 +49,5 @@ Rules you must follow:
   model: "gemini-flash-latest",
 
   // The main color of the site (a hex color code)
-  themeColor: "#BA0C2F",
+  themeColor: "#0E7C57",
 };
