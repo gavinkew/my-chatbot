@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chatbot</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <span class="brand-emoji" id="botEmoji"></span>
+        <div class="brand-text">
+          <h1 id="botName"></h1>
+          <p id="botTagline"></p>
+        </div>
+      </div>
+      <div class="header-buttons">
+        <button id="newChatBtn" class="btn btn-light" type="button">New chat</button>
+        <button id="keyBtn" class="btn btn-light" type="button">🔑 API key</button>
+      </div>
+    </header>
+
+    <main id="chat" class="chat" aria-live="polite"></main>
+
+    <footer class="composer">
+      <textarea id="input" rows="1" placeholder="Type your answer or request… (Enter to send, Shift+Enter for a new line)"></textarea>
+      <button id="sendBtn" class="btn btn-primary" type="button">Send</button>
+    </footer>
+  </div>
+
+  <!-- API key pop-up -->
+  <div id="keyModal" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="keyTitle">
+      <h2 id="keyTitle">Your Gemini API key</h2>
+      <p class="muted">Paste your key below. It is never saved in the website's code. By default it is kept only until you close this tab.</p>
+      <input id="keyInput" type="password" placeholder="Paste your API key here" autocomplete="off" />
+      <label class="remember">
+        <input id="rememberBox" type="checkbox" />
+        Remember on this device
+      </label>
+      <p id="keyStatus" class="muted small"></p>
+      <div class="modal-buttons">
+        <button id="keyClear" class="btn btn-light" type="button">Remove key</button>
+        <button id="keyCancel" class="btn btn-light" type="button">Cancel</button>
+        <button id="keySave" class="btn btn-primary" type="button">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
