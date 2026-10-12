@@ -218,3 +218,18 @@ html, body {
   .msg { max-width: 92%; }
   .brand p { display: none; }
 }
+
+/* ---------- Copy button ---------- */
+.copy-btn {
+  display: block;
+  margin-top: 8px;
+  font: inherit;
+  font-size: 0.78rem;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+.copy-btn:hover { color: var(--brand); border-color: var(--brand); }
