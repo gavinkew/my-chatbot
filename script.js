@@ -143,11 +143,42 @@ function scrollToBottom() {
   chatEl.scrollTop = chatEl.scrollHeight;
 }
 
-function addMessage(kind, text) {
+function makeCopyButton(text) {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "copy-btn";
+  btn.textContent = "📋 Copy";
+
+  btn.addEventListener("click", async () => {
+    const plain = text.replace(/\*\*/g, ""); // remove the ** bold marks
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(plain);
+      ok = true;
+    } catch (e) {
+      // Backup method for older browsers
+      try {
+        const box = document.createElement("textarea");
+        box.value = plain;
+        document.body.appendChild(box);
+        box.select();
+        ok = document.execCommand("copy");
+        box.remove();
+      } catch (e2) {}
+    }
+    btn.textContent = ok ? "✅ Copied!" : "⚠️ Copy failed";
+    setTimeout(() => { btn.textContent = "📋 Copy"; }, 1500);
+  });
+
+  return btn;
+}
+
+function addMessage(kind, text, withCopy) {
   const div = document.createElement("div");
   div.className = "msg " + kind;
   if (kind === "bot") div.innerHTML = formatText(text);
   else div.textContent = text; // user + error text: plain text, always safe
+  if (withCopy) div.appendChild(makeCopyButton(text));
   chatEl.appendChild(div);
   scrollToBottom();
   return div;
@@ -272,7 +303,7 @@ async function sendMessage(text) {
     const reply = await askGemini();
     hideThinking();
     history.push({ role: "model", parts: [{ text: reply }] });
-    addMessage("bot", reply);
+    addMessage("bot", reply, true);
   } catch (err) {
     hideThinking();
     history.pop(); // forget the failed message so you can simply resend it
