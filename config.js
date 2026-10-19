@@ -50,4 +50,31 @@ Rules you must follow:
 
   // The main color of the site (a hex color code)
   themeColor: "#0E7C57",
+
+  // ===================================================================
+  //  YOUR NOTES (RAG): lets the bot answer from your own notes file
+  // ===================================================================
+
+  // true = the bot uses your notes. false = the bot works like before.
+  useKnowledge: true,
+
+  // The name of your notes file. It must sit next to index.html.
+  knowledgeFile: "knowledge.md",
+
+  // How the bot finds the right notes for each question:
+  //   "meaning"  = smart search that understands what you mean (needs your API key)
+  //   "keywords" = simple search that matches words (works without a key)
+  // If "meaning" fails, the bot switches to "keywords" by itself.
+  searchMethod: "meaning",
+
+  // How many notes to hand to the bot with each question (3 is a good start)
+  topK: 3,
+
+  // The Gemini model that turns notes into searchable numbers.
+  // If you see an "embedding model not found" message, change this.
+  embeddingModel: "gemini-embedding-2",
+
+  // Extra rules about using your notes. These are added to the bot's rules above.
+  knowledgeRules:
+    "You will receive NOTES from my knowledge file along with each question. If the notes answer the question, base your answer on them and cite the note numbers like [1]. If they don't, begin with 'I couldn't find that in my notes.' Never invent facts, dates, rules or policies that are not in the notes.",
 };
