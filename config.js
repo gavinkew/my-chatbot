@@ -65,7 +65,7 @@ Rules you must follow:
   //   "meaning"  = smart search that understands what you mean (needs your API key)
   //   "keywords" = simple search that matches words (works without a key)
   // If "meaning" fails, the bot switches to "keywords" by itself.
-  searchMethod: "keywords",
+  searchMethod: "meaning",
 
   // How many notes to hand to the bot with each question (3 is a good start)
   topK: 3,
