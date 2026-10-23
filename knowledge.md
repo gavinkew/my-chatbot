@@ -117,3 +117,19 @@ GAAP Concept (paraphrased): "Information is material when its omission or missta
 Materiality helps determine whether financial information is important enough to affect the decisions of financial statement users. The significance of an error depends on more than its numerical amount. For example, a $100 error may be insignificant to a multibillion-dollar company but significant to a very small business. This demonstrates how the same amount can have different levels of importance depending on the company's circumstances. Both the size and nature of an error matter when evaluating materiality. Information is considered material when omitting or misstating it could influence the decisions of financial statement users.
 
 Reference: FASB Concepts Statement No. 8; applicable SEC materiality guidance for public companies.
+
+## What Are the Different Classifications of Equity Ownership? — Noninfluential, Significant Influence, Controlling Interest, Stock Investments
+
+GAAP Rule (paraphrased): "The accounting treatment of an equity investment depends on the investor's level of influence or control over the investee."
+
+Equity ownership is commonly divided into three classifications:
+
+1. Noninfluential Ownership (Generally Less Than 20%): The investor does not have significant influence over the company's operating and financial policies. Equity investments in this category are generally accounted for at fair value, with changes in fair value recognized in net income.
+
+2. Influential Ownership (Generally 20%–50%): The investor has significant influence but does not control the company. These investments are generally accounted for using the equity method, under which the investor recognizes its share of the investee's net income or loss.
+
+3. Controlling Ownership (Generally More Than 50%): The investor controls the company, generally through a majority of voting rights. The parent company generally prepares consolidated financial statements that combine the financial information of the parent and subsidiary.
+
+Ownership percentages are guidelines rather than absolute rules. Actual influence, voting rights, and control determine the appropriate accounting treatment.
+
+Reference: ASC 321 — Investments—Equity Securities; ASC 323 — Investments—Equity Method and Joint Ventures; ASC 810 — Consolidation.
