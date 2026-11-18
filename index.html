@@ -22,7 +22,29 @@
       </div>
     </header>
 
+    <!-- Buttons for the two new features -->
+    <div id="actionBar" class="actionbar">
+      <button id="examBtn" class="chip-btn" type="button">📝 Timed exam</button>
+      <button id="progressBtn" class="chip-btn" type="button">📊 My progress</button>
+    </div>
+
     <div id="kbStatus" class="kb-status" hidden></div>
+
+    <!-- Countdown bar (only visible during an exam) -->
+    <div id="examBar" class="exam-bar" hidden>
+      <div class="exam-top">
+        <span class="exam-title" id="examTitle"></span>
+        <span class="exam-clock" id="examClock">00:00</span>
+      </div>
+      <div class="exam-track"><div class="exam-fill" id="examFill"></div></div>
+      <div class="exam-bottom">
+        <span class="exam-hint" id="examHint"></span>
+        <span class="exam-actions">
+          <button id="examCancel" class="chip-btn" type="button">Cancel exam</button>
+          <button id="examSubmit" class="chip-btn chip-primary" type="button">Submit</button>
+        </span>
+      </div>
+    </div>
 
     <main id="chat" class="chat" aria-live="polite"></main>
 
@@ -47,6 +69,44 @@
         <button id="keyClear" class="btn btn-light" type="button">Remove key</button>
         <button id="keyCancel" class="btn btn-light" type="button">Cancel</button>
         <button id="keySave" class="btn btn-primary" type="button">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timed exam setup pop-up -->
+  <div id="examModal" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="examModalTitle">
+      <h2 id="examModalTitle">📝 Timed practice exam</h2>
+      <p class="muted">Choose a topic, the number of questions, and how long you get. The clock starts when the questions appear. Starting an exam begins a fresh chat.</p>
+      <label class="field">Topic (type your own or pick one)
+        <input id="examTopic" type="text" list="topicList" placeholder="e.g. Accrual basis accounting" autocomplete="off" />
+      </label>
+      <datalist id="topicList"></datalist>
+      <div class="field-row">
+        <label class="field">Questions
+          <input id="examCount" type="number" min="1" max="20" />
+        </label>
+        <label class="field">Minutes
+          <input id="examMinutes" type="number" min="1" max="120" />
+        </label>
+      </div>
+      <p id="examModalStatus" class="muted small"></p>
+      <div class="modal-buttons">
+        <button id="examModalCancel" class="btn btn-light" type="button">Cancel</button>
+        <button id="examStart" class="btn btn-primary" type="button">Start exam</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress dashboard pop-up -->
+  <div id="progressModal" class="modal-backdrop" hidden>
+    <div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="progressTitle">
+      <h2 id="progressTitle">📊 My progress</h2>
+      <div id="progressBody"></div>
+      <div class="modal-buttons">
+        <button id="progressClear" class="btn btn-light" type="button">Clear progress</button>
+        <button id="progressClose" class="btn btn-light" type="button">Close</button>
+        <button id="progressPractice" class="btn btn-primary" type="button" hidden>🎯 Practice my weakest topic</button>
       </div>
     </div>
   </div>
