@@ -77,4 +77,30 @@ Rules you must follow:
   // Extra rules about using your notes. These are added to the bot's rules above.
   knowledgeRules:
     "You will receive NOTES from my knowledge file along with each question. If the notes answer the question, base your answer on them and cite the note numbers like [1]. If they don't, begin with 'I couldn't find that in my notes.' Never invent facts, dates, rules or policies that are not in the notes.",
+
+  // ===================================================================
+  //  NEW FEATURE 1: PROGRESS TRACKER (the "📊 My progress" dashboard)
+  // ===================================================================
+
+  // true = scores are saved in the student's browser and shown in a dashboard.
+  // false = the 📊 button disappears and nothing is saved.
+  trackProgress: true,
+
+  // A hidden rule that makes the bot add a tiny score line at the end of each
+  // graded reply. The website reads that line, saves it, and hides it from
+  // the student. Please don't change this unless you know what you are doing.
+  progressRules:
+    "SCORE TRACKING: Every time you finish grading the student's answers, end your reply with one extra line for each topic you graded, written exactly like this: [[SCORE: 3/5 | TOPIC: Accrual basis accounting]]. The first number is how many questions the student got right (whole numbers only), the second number is how many questions you graded, and the topic is a short name of 2 to 5 words. Use the same topic name every time you grade the same subject. Never include this line before the student has answered, and never mention or explain the line. Grading a student's answers is not a lookup in the notes, so do not start a grading reply with 'I couldn't find that in my notes.'",
+
+  // ===================================================================
+  //  NEW FEATURE 2: TIMED EXAM MODE (the "📝 Timed exam" button)
+  // ===================================================================
+
+  // true = show the "Timed exam" button. false = hide it.
+  examMode: true,
+
+  // The numbers that are filled in when the exam pop-up opens
+  // (the student can change them).
+  examDefaultQuestions: 5,
+  examDefaultMinutes: 10,
 };
