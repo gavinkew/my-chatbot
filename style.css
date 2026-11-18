@@ -9,6 +9,7 @@
   --bot-bubble: #ffffff;
   --user-text: #ffffff;
   --warn: #9a6700;
+  --danger: #c0392b;
 }
 
 /* ---------- Colors (dark mode, follows your device setting) ---------- */
@@ -21,10 +22,14 @@
     --border: #34343a;
     --bot-bubble: #26262b;
     --warn: #f0b429;
+    --danger: #ff6b5e;
   }
 }
 
 * { box-sizing: border-box; }
+
+/* Anything marked "hidden" stays hidden */
+[hidden] { display: none !important; }
 
 html, body {
   height: 100%;
@@ -64,6 +69,30 @@ html, body {
 .brand p { margin: 0; font-size: 0.8rem; opacity: 0.9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .header-buttons { display: flex; gap: 6px; flex-shrink: 0; }
 
+/* ---------- Action bar (Timed exam + My progress) ---------- */
+.actionbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px 14px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.chip-btn {
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--brand);
+  background: transparent;
+  border: 1.5px solid var(--brand);
+  border-radius: 999px;
+  padding: 5px 13px;
+  cursor: pointer;
+}
+.chip-btn:hover:not(:disabled) { background: var(--brand); color: #fff; }
+.chip-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.chip-primary { background: var(--brand); color: #fff; }
+.chip-primary:hover:not(:disabled) { filter: brightness(1.1); }
+
 /* ---------- Notes status line ---------- */
 .kb-status {
   padding: 6px 14px;
@@ -72,8 +101,36 @@ html, body {
   background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
-.kb-status[hidden] { display: none; }
 .kb-status.warn { color: var(--warn); }
+
+/* ---------- Exam countdown bar ---------- */
+.exam-bar {
+  padding: 10px 14px;
+  background: var(--bg);
+  border-bottom: 2px solid var(--brand);
+}
+.exam-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.exam-title { font-weight: 600; font-size: 0.9rem; }
+.exam-clock {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand);
+}
+.exam-track {
+  height: 8px;
+  margin: 6px 0;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.exam-fill { height: 100%; width: 100%; background: var(--brand); border-radius: 999px; transition: width 0.4s linear; }
+.exam-bottom { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.exam-hint { font-size: 0.78rem; color: var(--muted); flex: 1 1 220px; }
+.exam-actions { display: flex; gap: 6px; }
+.exam-bar.warn { border-bottom-color: var(--danger); }
+.exam-bar.warn .exam-clock { color: var(--danger); }
+.exam-bar.warn .exam-fill { background: var(--danger); }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -185,12 +242,14 @@ html, body {
   background: var(--bg);
   color: var(--text);
 }
-.composer textarea:focus, .modal input[type="password"]:focus {
+.composer textarea:focus,
+.modal input[type="password"]:focus,
+.modal .field input:focus {
   outline: 2px solid var(--brand);
   outline-offset: 0;
 }
 
-/* ---------- Pop-up ---------- */
+/* ---------- Pop-ups ---------- */
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -201,27 +260,35 @@ html, body {
   padding: 16px;
   z-index: 10;
 }
-.modal-backdrop[hidden] { display: none; }
 .modal {
   width: 100%;
   max-width: 420px;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
   background: var(--surface);
   color: var(--text);
   border-radius: 14px;
   padding: 20px;
 }
+.modal-wide { max-width: 520px; }
 .modal h2 { margin: 0 0 6px; font-size: 1.15rem; }
-.modal input[type="password"] {
+.modal h3 { margin: 16px 0 8px; font-size: 0.95rem; }
+.modal input[type="password"],
+.modal .field input {
   width: 100%;
   font: inherit;
   font-size: 16px;
   padding: 10px 12px;
-  margin: 10px 0;
+  margin: 6px 0 10px;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--bg);
   color: var(--text);
 }
+.modal input[type="password"] { margin: 10px 0; }
+.field { display: block; flex: 1; font-size: 0.9rem; margin-top: 10px; }
+.field-row { display: flex; gap: 12px; }
 .remember { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
 .muted { color: var(--muted); margin: 0; }
 .small { font-size: 0.85rem; min-height: 1.2em; margin-top: 8px; }
@@ -262,7 +329,53 @@ html, body {
 .source-score { color: var(--muted); }
 .source-snippet { margin: 2px 0 0; color: var(--muted); }
 
+/* ---------- Score badges under graded replies ---------- */
+.score-chips { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+.score-chip {
+  align-self: flex-start;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--brand);
+  border: 1.5px solid var(--brand);
+  border-radius: 999px;
+  padding: 3px 12px;
+}
+
+/* ---------- Progress dashboard ---------- */
+.stats { display: flex; gap: 8px; margin-top: 12px; }
+.stat {
+  flex: 1;
+  text-align: center;
+  padding: 10px 6px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.stat-big { font-size: 1.5rem; font-weight: 700; color: var(--brand); line-height: 1.2; }
+.stat-small { font-size: 0.75rem; color: var(--muted); }
+.weakest {
+  margin-top: 12px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  border-left: 4px solid var(--danger);
+  background: var(--bg);
+  border-radius: 6px;
+}
+.topic-row { margin-bottom: 10px; }
+.topic-head { display: flex; justify-content: space-between; gap: 10px; font-size: 0.88rem; }
+.topic-name { font-weight: 600; }
+.topic-pct { color: var(--muted); white-space: nowrap; }
+.bar-track { height: 10px; margin-top: 4px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 999px; }
+.bar-fill.good { background: var(--brand); }
+.bar-fill.ok { background: #d99a00; }
+.bar-fill.low { background: #c0392b; }
+.recent { list-style: none; margin: 0; padding: 0; font-size: 0.85rem; }
+.recent li { display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--border); }
+.recent .when { color: var(--muted); white-space: nowrap; }
+
 @media (max-width: 480px) {
   .msg { max-width: 92%; }
   .brand p { display: none; }
+  .field-row { flex-direction: column; gap: 0; }
 }
